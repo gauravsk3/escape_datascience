@@ -1,0 +1,151 @@
+"eventid","eventname","subtype","cuisine","price","openWeek","closeWeek","openSat","closeSat","openSun","closeSun","eventlength","popularity","longitude","latitude"
+1,"Jarryds","breakfast","Cafe",2,"7",NA,"7","NA","7","NA",1.5,3,18.38201,-33.92145
+3,"Truth Coffee","breakfast","Cafe",1,"7.5","18","7.5","18","7.5","18",1,3,18.42256,-33.92819
+5,"The Deckhouse Crab Shack and BBQ","breakfast","Seafood",3,"11","22","11","22","11","22",2,1,18.4072,-33.93409
+7,"The Towers Restaurant - African Pride Crystal Towers","breakfast","Contemporary",3,"6.5","22","6.5","22","6.5","22",2,1,18.5136667,-33.8880429
+9,"Jason","breakfast","Cafe",1,NA,NA,"NULL","NULL","NULL","NULL",1,3,18.41477,-33.92453
+11,"Karibu","breakfast","Steakhouse",3,"9","23","9","23","9","23",2,1,NA,NA
+13,"NOMAD Bistro Fusion","breakfast","International",1,"8","16","8","16","8","16",1,1,18.4213655,-33.9197979
+15,"Maria's","breakfast","Greek",2,"8.5","22","8.5","22","8.5","22",1.5,2,18.4240553,-33.9248685
+17,"Starlings Cafe","breakfast","Cafe",1,"7","17","7","17","7","17",1,3,18.481927,-33.980067
+19,"Bacon on Bree","breakfast","Cafe",1,"7","16","7","16","7","16",1,2,18.41358,-33.9255799
+21,"The Larder","breakfast","Cafe",1,"7","17","7","17","7","17",1,2,18.464752,-33.98186
+23,"Schoon De Companje","breakfast","European",1,"7","22","7","22","7","22",1,2,18.4240553,-33.9248685
+25,"Company's Garden","breakfast","Cafe",1,"7","18","7","18","7","18",1,2,18.4161928,-33.9271325
+27,"Honest Chocolate Cafe","breakfast","Cafe",1,"9","17","9","17","9","17",1,2,18.4170927,-33.9226046
+29,"Mynt Cafe","breakfast","Cafe",2,"8","23","8","23","8","23",1.5,1,18.3789104,-33.9503143
+31,"Warwick Wine Estate","breakfast","South African",3,"9","17","9","17","9","17",2,1,18.4240553,-33.9248685
+33,"PRIMI Piatti","breakfast","Italian",3,"9","22","9","22","9","22",2,2,NA,NA
+35,"Four & Twenty","breakfast","Cafe",2,"8","17","8","17","8","17",1.5,3,18.4240553,-33.9248685
+37,"Greens","breakfast","Cafe",2,"8","17","8","17","8","17",1.5,1,18.4240553,-33.9248685
+39,"tashas","breakfast","Cafe",2,"7.5","21","7.5","21","7.5","21",1.5,3,18.4661816,-34.0084456
+41,"Lekke Neh Restaurant","breakfast","Burger",2,"9","17","9","17","9","17",1.5,1,NA,NA
+43,"Durbanville Hills Restaurant","breakfast","Grill",3,"8.5","15","8.5","15","8.5","15",2,1,18.38144,-33.92226
+45,"Kleinskys Delicatessen","breakfast","Deli",1,"8","17","8","17","8","17",1,2,18.42423,-33.92732
+47,"Haas Collective","breakfast","Cafe",1,"7","17","7","17","7","17",1,1,18.6331326,-33.8727092
+49,"Mondiall","breakfast","Seafood",3,"9","11","9","11","9","11",2,2,-84.7687579,44.3257819
+51,"ON19 Restaurant - The Westin Cape Town","breakfast","African",3,"6.5","10","6.5","10","6.5","10",2,1,18.4252857,-33.9169151
+53,"Yours Truly","breakfast","Cafe",1,"6","23","6","23","6","23",1,2,18.41077,-33.93035
+55,"Pastis","breakfast","French",3,"8.5","22","8.5","22","8.5","22",2,1,18.4293251,-34.0232087
+57,"Bootlegger Coffee Company","breakfast","Cafe",1,"6.5","22","6.5","22","6.5","22",1,2,18.385581,-33.9197088
+59,"Bistro Sixteen82","breakfast","French",3,"9","11","9","11","9","11",2,2,18.4173455,-34.059288
+61,"Yoco Eatery","breakfast","Burger",1,"8","16","8","16","8","16",1,1,18.6490016,-33.83177
+63,"Franky's Diner","breakfast","American",1,NA,NA,"NULL",NA,"NULL",NA,1,2,18.3931389,-33.912166
+65,"Honeybun","breakfast","Cafe",1,"7","17","7","17","7","17",1,1,18.46895,-33.93915
+67,"Tokara Delicatessen","breakfast","Deli",2,"9",NA,"9","NA","9","NA",1.5,1,18.4240553,-33.9248685
+69,"Restaurant @ Sweetwell","breakfast","Cafe",3,"8","16","8","16","8","16",2,1,18.4174,-33.91696
+71,"Clarke's Bar & Dining Room","breakfast","European",1,"7","17","7","17","7","17",1,3,18.4240553,-33.9248685
+73,"Hillcrest Restaurant","breakfast","Mediterranean",2,"9","17","9","17","9","17",1.5,1,18.4171771,-33.9223513
+75,"The Gardener's Cottage","breakfast","Cafe",1,"8",NA,"8","NA","8","NA",1,1,18.6331326,-33.8727092
+77,"I Love My Laundry","breakfast","Cafe",1,"7","19","7","19","7","19",1,1,18.457429,-33.97027
+79,"Sotano","breakfast","European",2,"7","23","7","23","7","23",1.5,2,18.42192,-33.9288
+81,"Basic Bistro","breakfast","Cafe",2,"7.5","22","7.5","22","7.5","22",1.5,1,18.399517,-33.9021373
+83,"Origin Coffee Roasting","breakfast","Cafe",1,"7","17","7","17","7","17",1,2,18.8500952,-34.0851753
+85,"Mugg & Bean","breakfast","Cafe",3,"8","22","8","22","8","22",2,1,18.5149529,-33.892772
+87,"Tribakery","breakfast","Cafe",1,"8","22","8","22","8","22",1,1,NA,NA
+89,"tashas","breakfast","Cafe",2," 7","21"," 7","21"," 7","21",1.5,2,18.4638251,-33.9795513
+91,"Savour - African Pride 15 on Orange Hotel","breakfast","Asian",3,"6.5","10","6.5","10","6.5","10",2,1,18.4129022,-33.929752
+93,"Brass Bell","breakfast","Seafood",3,"8","24","8","24","8","24",2,3,18.4541499,-33.971556
+95,"Fire & Ice! Restaurant","breakfast","Seafood",3,"6","23","6","23","6","23",2,2,-122.2913078,37.8271784
+97,"Saints Burger Joint","breakfast","Burger",2,"8.5","23","8.5","23","8.5","23",1.5,2,NA,NA
+99,"Manna Epicure","breakfast","Mediterranean",2,"8","15","8","15","8","15",1.5,2,18.4072207,-33.9346556
+101,"NOMAD Bistro Fusion","lunch","International",1,"8","16","8","16","8","16",1,1,18.4213655,-33.9197979
+103,"Jarryds","lunch","Cafe",2,"7",NA,"7","NA","7","NA",1.5,3,18.38201,-33.92145
+105,"The Village Idiot","lunch","South African",2,"15","2","15","2","15","2",1.5,2,18.42086,-33.91955
+107,"Kloof Street House","lunch","Mediterranean",3,"17","22","17","22","17","22",2,3,18.41209,-33.9281999
+109,"Bacon on Bree","lunch","Cafe",1,"7","16","7","16","7","16",1,2,18.41358,-33.9255799
+111,"The Larder","lunch","Cafe",1,"7","17","7","17","7","17",1,2,18.464752,-33.98186
+113,"Company's Garden","lunch","Cafe",1,"7","18","7","18","7","18",1,2,18.4161928,-33.9271325
+115,"Bocca","lunch","Pizza",2,"12","22","12","22","12","22",1.5,2,18.4167037,-33.9223534
+117,"Clarke's Bar & Dining Room","lunch","European",1,"7","17","7","17","7","17",1,3,18.4171771,-33.9223513
+119,"Jason","lunch","Cafe",1,NA,NA,"NULL","NULL","NULL","NULL",1,3,18.41477,-33.92453
+121,"Royale Eatery","lunch","Burger",3,"12","23","12","23","12","23",2,3,18.4149897,-33.9264666
+123,"Truth Coffee","lunch","Cafe",1,"7.5","18","7.5","18","7.5","18",1,3,18.42256,-33.92819
+125,"The Potluck Club","lunch","European",3,"24",NA,"24","NA","24","NA",2,3,18.4240553,-33.9248685
+127,"Jerry's Burger Bar","lunch","Burger",2,"12","2","12","2","12","2",1.5,3,18.42044,-33.91936
+129,"Villa 47","lunch","International",2,"6.5","22","6.5","22","6.5","22",1.5,1,18.4570823,-33.9275444
+131,"Hemelhuijs","lunch","Continental",1,"9","16","9","16","9","16",1,1,18.4201597,-33.9187159
+133,"Yours Truly","lunch","Cafe",1,"6","23","6","23","6","23",1,2,18.41077,-33.93035
+135,"Eastern Food Bazaar","lunch","Asian",1,"9","22","9","22","9","22",1,3,18.6016519,-33.911209
+137,"El Burro","lunch","Mexican",3,"12","23","12","23","12","23",2,3,18.4109541,-33.9083068
+139,"South China Dim Sum Bar","lunch","Asian",1,"24","15","24","15","24","15",1,2,18.4147857,-33.9266528
+141,"Lekke Neh Restaurant","lunch","Burger",2,"9","17","9","17","9","17",1.5,1,18.4240553,-33.9248685
+143,"Warwick Wine Estate","lunch","South African",3,"9","17","9","17","9","17",2,1,18.4240553,-33.9248685
+145,"IYO Burgers (Inside & You're Out)","lunch","Burger",2,"17","22","17","22","17","22",1.5,3,18.41833,-33.92139
+147,"Starlings Cafe","lunch","Cafe",1,"7","17","7","17","7","17",1,3,18.481927,-33.980067
+149,"Loco Lounge","lunch","Mediterranean",2,NA,NA,"NULL",NA,"NULL",NA,1.5,2,18.47422,-33.986892
+151,"Honest Chocolate Cafe","lunch","Cafe",1,"9","17","9","17","9","17",1,2,18.38201,-33.92145
+153,"The House Of Machines","lunch","Contemporary",1,"7","24","7","24","7","24",1,1,18.42256,-33.92819
+155,"Constantia Glen","lunch","European",3,"10","17","10","17","10","17",2,1,18.4072,-33.93409
+157,"Beau Constantia","lunch","Sushi",2,"10",NA,"10","NA","10","NA",1.5,1,18.5136667,-33.8880429
+159,"The Thirsty Scarecrow","lunch","Mexican",2,"15","23","15","23","15","23",1.5,2,18.41477,-33.92453
+161,"Latitude 33","lunch","Cafe",1,"7","15","7","15","7","15",1,1,NA,NA
+163,"96 Winery Road","lunch","African",3,"12",NA,"12","NA","12","NA",2,1,18.4213655,-33.9197979
+165,"Easy Tiger","lunch","Burger",1,"11","22","11","22","11","22",1,1,18.4240553,-33.9248685
+167,"Jonkershuis Restaurant","lunch","Cape Malay",3,"9","21","9","21","9","21",2,2,18.481927,-33.980067
+169,"Greenhouse","lunch","Deli",2,"10","16","10","16","10","16",1.5,1,18.41358,-33.9255799
+171,"NV 80","lunch","Grill",3,"12","15","12","15","12","15",2,2,18.464752,-33.98186
+173,"Fork","lunch","Mediterranean",1,"12","23","12","23","12","23",1,2,18.4240553,-33.9248685
+175,"La Boheme","lunch","South African",2,"12","22","12","22","12","22",1.5,3,18.4161928,-33.9271325
+177,"Charango Grill and Bar","lunch","Latin American",3,"6","23","6","23","6","23",2,1,18.4170927,-33.9226046
+179,"Orchard on Long","lunch","Cafe",1,"9","17","9","17","9","17",1,1,18.3789104,-33.9503143
+181,"Restaurant @ Sweetwell","lunch","Cafe",3,"8","16","8","16","8","16",2,1,18.4240553,-33.9248685
+183,"Poplars Restaurant","lunch","European",3,"12","22","12","22","12","22",2,1,NA,NA
+185,"Rocomamas","lunch","Burger",2,"9","22","9","22","9","22",1.5,1,18.4240553,-33.9248685
+187,"Sevruga","lunch","Seafood",3,"12","22","12","22","12","22",2,3,18.4240553,-33.9248685
+189,"Jamaica Me Crazy","lunch","Caribbean",2,"11","23","11","23","11","23",1.5,3,18.4661816,-34.0084456
+191,"Willoughby & Co.","lunch","Seafood",3,"12","22","12","22","12","22",2,3,NA,NA
+193,"Bistro Sixteen82","lunch","French",3,"9","11","9","11","9","11",2,2,18.38144,-33.92226
+195,"Haas Collective","lunch","Cafe",1,"7","17","7","17","7","17",1,1,18.42423,-33.92732
+197,"Tokara Restaurant","lunch","African",3,"12","15","12","15","12","15",2,2,18.6331326,-33.8727092
+199,"Sushi Box","lunch","Sushi",1,"11","20","11","20","11","20",1,2,-84.7687579,44.3257819
+201,"The Village Idiot","dinner","South African",2,"15","2","15","2","15","2",1.5,2,18.4252857,-33.9169151
+203,"Kloof Street House","dinner","Mediterranean",3,"17","22","17","22","17","22",2,3,18.41077,-33.93035
+205,"Jerry's Burger Bar","dinner","Burger",2,"12","2","12","2","12","2",1.5,3,18.4293251,-34.0232087
+207,"Fork","dinner","Mediterranean",1,"12","23","12","23","12","23",1,2,18.385581,-33.9197088
+209,"Villa 47","dinner","International",2,"6.5","22","6.5","22","6.5","22",1.5,1,18.4173455,-34.059288
+211,"The Potluck Club","dinner","European",3,"24",NA,"24","NA","24","NA",2,3,18.6490016,-33.83177
+213,"Bocca","dinner","Pizza",2,"12","22","12","22","12","22",1.5,2,18.3931389,-33.912166
+215,"Lefty's","dinner","Grill",1,"16","23","16","23","16","23",1,3,18.46895,-33.93915
+217,"NV 80","dinner","Grill",3,"12","15","12","15","12","15",2,2,18.4240553,-33.9248685
+219,"El Burro","dinner","Mexican",3,"12","23","12","23","12","23",2,3,18.4174,-33.91696
+221,"The Test Kitchen","dinner","Continental",3,"24","14","24","14","24","14",2,3,18.4240553,-33.9248685
+223,"Bombay Bicycle Club","dinner","Mediterranean",3,"16","24","16","24","16","24",2,3,18.4171771,-33.9223513
+225,"Clarke's Bar & Dining Room","dinner","European",1,"7","17","7","17","7","17",1,3,18.6331326,-33.8727092
+227,"La Boheme","dinner","South African",2,"12","22","12","22","12","22",1.5,3,18.457429,-33.97027
+229,"Eastern Food Bazaar","dinner","Asian",1,"9","22","9","22","9","22",1,3,18.42192,-33.9288
+231,"Tiger's Milk Restaurant & Bar","dinner","Steakhouse",2,"16","2","16","2","16","2",1.5,1,18.399517,-33.9021373
+233,"Charango Grill and Bar","dinner","Latin American",3,"6","23","6","23","6","23",2,1,18.8500952,-34.0851753
+235,"Royale Eatery","dinner","Burger",3,"12","23","12","23","12","23",2,3,18.5149529,-33.892772
+237,"Mondiall","dinner","Seafood",3,"9","11","9","11","9","11",2,2,NA,NA
+239,"The Dog's Bollocks at YARD","dinner","Burger",1,"17","22","17","22","17","22",1,3,18.4638251,-33.9795513
+241,"South China Dim Sum Bar","dinner","Asian",1,"24","15","24","15","24","15",1,2,18.4129022,-33.929752
+243,"La Parada","dinner","Spanish",2,"12","2","12","2","12","2",1.5,3,18.4541499,-33.971556
+245,"Willoughby & Co.","dinner","Seafood",3,"12","22","12","22","12","22",2,3,-122.2913078,37.8271784
+247,"The Black Sheep Restaurant","dinner","European",3,"18","22","18","22","18","22",2,2,NA,NA
+249,"Il Leone","dinner","Italian",3,"12","15","12","15","12","15",2,2,18.4072207,-33.9346556
+251,"Nuri Sushi Factory","dinner","Japanese",2,"11","21","11","21","11","21",1.5,3,18.4213655,-33.9197979
+253,"Haiku","dinner","Japanese",3,"12","15","12","15","12","15",2,2,18.38201,-33.92145
+255,"Sotano","dinner","European",2,"7","23","7","23","7","23",1.5,2,18.42086,-33.91955
+257,"IYO Burgers (Inside & You're Out)","dinner","Burger",2,"17","22","17","22","17","22",1.5,3,18.41209,-33.9281999
+259,"Homespun","dinner","South African",3,"18","23","18","23","18","23",2,2,18.41358,-33.9255799
+261,"Gibson's Gourmet Burgers & Ribs","dinner","Burger",2,"11","22","11","22","11","22",1.5,3,18.464752,-33.98186
+263,"Pigalle","dinner","Seafood",3,"12",NA,"12","NA","12","NA",2,3,18.4161928,-33.9271325
+265,"Pancho's","dinner","Mexican",1,NA,"12","NA","12","NA","12",1,3,18.4167037,-33.9223534
+267,"The Five Guys Eatery","dinner","Burger",2,"11","23","11","23","11","23",1.5,1,18.4171771,-33.9223513
+269,"Ocean Basket","dinner","Seafood",3,"11","22","11","22","11","22",2,1,18.41477,-33.92453
+271,"Sevruga","dinner","Seafood",3,"12","22","12","22","12","22",2,3,18.4149897,-33.9264666
+273,"Truth Coffee","dinner","Cafe",1,"7.5","18","7.5","18","7.5","18",1,3,18.42256,-33.92819
+275,"Hudsons The Burger Joint","dinner","Burger",3,"12","23","12","23","12","23",2,3,18.4240553,-33.9248685
+277,"Da Vincis On Kloof","dinner","Burger",2,"11","23","11","23","11","23",1.5,3,18.42044,-33.91936
+279,"Balducci","dinner","Italian",2,"11","22","11","22","11","22",1.5,2,18.4570823,-33.9275444
+281,"Loco Lounge","dinner","Mediterranean",2,NA,NA,"NULL",NA,"NULL",NA,1.5,2,18.4201597,-33.9187159
+283,"The Fat Cactus","dinner","Mexican",2,"10","24","10","24","10","24",1.5,3,18.41077,-33.93035
+285,"96 Winery Road","dinner","African",3,"12",NA,"12","NA","12","NA",2,1,18.6016519,-33.911209
+287,"Rocomamas","dinner","Burger",2,"9","22","9","22","9","22",1.5,1,18.4109541,-33.9083068
+289,"HQ Restaurant - Heritage Square","dinner","Steakhouse",3,"12","24","12","24","12","24",2,3,18.4147857,-33.9266528
+291,"Ristorante Posticino","dinner","Italian",2,"24","23","24","23","24","23",1.5,3,18.4240553,-33.9248685
+293,"The Cousins Trattoria","dinner","Italian",2,"18","22","18","22","18","22",1.5,1,18.4240553,-33.9248685
+295,"The Odyssey","dinner","Burger",2,"11","24","11","24","11","24",1.5,2,18.41833,-33.92139
+297,"Zapata Mexican Restaurant","dinner","Mexican",2,NA,"22","NA","22","NA","22",1.5,1,18.481927,-33.980067
+299,"Olympia Cafe & Deli","dinner","Cafe",1,"7","21","7","21","7","21",1,2,18.47422,-33.986892
