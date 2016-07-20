@@ -14,6 +14,7 @@ library(RCurl)
 library(RJSONIO)
 library(plyr)
 library(ggmap)
+
 #---------------------------------------------------
 
 # scrape in breakfast data 
@@ -31,50 +32,50 @@ zomato.breakfast.address <- c()
 for (k in 1:2) {
 
   
-zomato.breakfast <- read_html(paste("https://www.zomato.com/capetown/breakfast?page=", k, sep = ""))
+  zomato.breakfast <- read_html(paste("https://www.zomato.com/capetown/breakfast?page=", k, sep = ""))
 
-# get number of entries by looking for the first empty string as we loop through the names
+  # get number of entries by looking for the first empty string as we loop through the names
 
-j = 0
-while(length(is.na(zomato.breakfast %>% html_nodes(css = paste("#orig-search-list > div:nth-child(", j+1, ") > div.content > div > article > div.pos-relative.clearfix > div > div.col-s-16.col-m-12.pl0 > div:nth-child(1) > div.col-s-12 > a.result-title.hover_feedback.zred.bold.ln24.fontsize0", sep = "")) %>% 
-                   html_attr("title"))) == 1) {
-  j = j + 1
-}
-
-
-z %>% html_nodes(css = "#orig-search-list > div:nth-child(1) > div.content > div > article > div.pos-relative.clearfix > div > div.col-s-16.col-m-12.pl0 > div:nth-child(1) > div.col-s-12 > a.result-title.hover_feedback.zred.bold.ln24.fontsize0") %>% html_text()
-
-for (i in 1:j) {
-  zomato.breakfast.names <- c(zomato.breakfast.names, 
-                    zomato.breakfast %>% html_nodes(css = paste("#orig-search-list > div:nth-child(", i, ") > div.content > div > article > div.pos-relative.clearfix > div > div.col-s-16.col-m-12.pl0 > div:nth-child(1) > div.col-s-12 > a.result-title.hover_feedback.zred.bold.ln24.fontsize0", sep = "")) %>% 
-                               html_text()
-                             )
+  j = 0
+  while(length(is.na(zomato.breakfast %>% html_nodes(css = paste("#orig-search-list > div:nth-child(", j+1, ") > div.content > div > article > div.pos-relative.clearfix > div > div.col-s-16.col-m-12.pl0 > div:nth-child(1) > div.col-s-12 > a.result-title.hover_feedback.zred.bold.ln24.fontsize0", sep = "")) %>% 
+                     html_attr("title"))) == 1) {
+    j = j + 1
+  }
 
 
-  zomato.breakfast.popularity <- c(zomato.breakfast.popularity,
-                                   zomato.breakfast %>% html_nodes(css = paste("#orig-search-list > div:nth-child(", i, ") > div.content > div > article > div.pos-relative.clearfix > div > div.col-s-16.col-m-12.pl0 > div:nth-child(1) > div.ta-right.floating.search_result_rating.col-s-4.clearfix > span", sep = "")) %>% html_text()
-                                  )
+  z %>% html_nodes(css = "#orig-search-list > div:nth-child(1) > div.content > div > article > div.pos-relative.clearfix > div > div.col-s-16.col-m-12.pl0 > div:nth-child(1) > div.col-s-12 > a.result-title.hover_feedback.zred.bold.ln24.fontsize0") %>% html_text()
+
+  for (i in 1:j) {
+    zomato.breakfast.names <- c(zomato.breakfast.names, 
+                      zomato.breakfast %>% html_nodes(css = paste("#orig-search-list > div:nth-child(", i, ") > div.content > div > article > div.pos-relative.clearfix > div > div.col-s-16.col-m-12.pl0 > div:nth-child(1) > div.col-s-12 > a.result-title.hover_feedback.zred.bold.ln24.fontsize0", sep = "")) %>% 
+                                 html_text()
+                               )
+
+
+    zomato.breakfast.popularity <- c(zomato.breakfast.popularity,
+                                     zomato.breakfast %>% html_nodes(css = paste("#orig-search-list > div:nth-child(", i, ") > div.content > div > article > div.pos-relative.clearfix > div > div.col-s-16.col-m-12.pl0 > div:nth-child(1) > div.ta-right.floating.search_result_rating.col-s-4.clearfix > span", sep = "")) %>% html_text()
+                                    )
   
-  zomato.breakfast.cuisine <- c(zomato.breakfast.cuisine,
-                                (zomato.breakfast %>% html_nodes(css = paste("#orig-search-list > div:nth-child(", i, ") > div.content > div > article > div.search-page-text.clearfix.row > div:nth-child(1) > span.col-s-11.col-m-12.nowrap.pl0 > a", sep = "")) %>% html_text())[1]
+    zomato.breakfast.cuisine <- c(zomato.breakfast.cuisine,
+                                  (zomato.breakfast %>% html_nodes(css = paste("#orig-search-list > div:nth-child(", i, ") > div.content > div > article > div.search-page-text.clearfix.row > div:nth-child(1) > span.col-s-11.col-m-12.nowrap.pl0 > a", sep = "")) %>% html_text())[1]
+                                 )
+  
+    zomato.breakfast.hours <- c(zomato.breakfast.hours,
+                                zomato.breakfast %>% html_nodes(css = paste("#orig-search-list > div:nth-child(", i, ") > div.content > div > article > div.search-page-text.clearfix.row > div.res-timing.clearfix", sep = "")) %>% html_attr("title")
                                )
   
-  zomato.breakfast.hours <- c(zomato.breakfast.hours,
-                              zomato.breakfast %>% html_nodes(css = paste("#orig-search-list > div:nth-child(", i, ") > div.content > div > article > div.search-page-text.clearfix.row > div.res-timing.clearfix", sep = "")) %>% html_attr("title")
-                             )
+    zomato.breakfast.costFor2 <- c(zomato.breakfast.costFor2,
+                                   gsub(zomato.breakfast %>% html_nodes(css = paste("#orig-search-list > div:nth-child(", i, ") > div.content > div > article > div.search-page-text.clearfix.row > div.res-cost.clearfix > span.col-s-11.col-m-12.pl0", sep = "")) %>% html_text(), pattern = "ZAR", replacement = "")
+                                  )
   
-  zomato.breakfast.costFor2 <- c(zomato.breakfast.costFor2,
-                                 gsub(zomato.breakfast %>% html_nodes(css = paste("#orig-search-list > div:nth-child(", i, ") > div.content > div > article > div.search-page-text.clearfix.row > div.res-cost.clearfix > span.col-s-11.col-m-12.pl0", sep = "")) %>% html_text(), pattern = "ZAR", replacement = "")
-                                )
-  
-  zomato.breakfast.address <- c(zomato.breakfast.address, 
-                                zomato.breakfast %>% html_nodes(css = paste("#orig-search-list > div:nth-child(", i, ") > div.content > div > article > div.pos-relative.clearfix > div > div.col-s-16.col-m-12.pl0 > div:nth-child(2) > div", sep = "")) %>% html_text()
-                                ) 
-}
+    zomato.breakfast.address <- c(zomato.breakfast.address, 
+                                  zomato.breakfast %>% html_nodes(css = paste("#orig-search-list > div:nth-child(", i, ") > div.content > div > article > div.pos-relative.clearfix > div > div.col-s-16.col-m-12.pl0 > div:nth-child(2) > div", sep = "")) %>% html_text()
+                                  ) 
+  }
 
 }
 
-#-----------------------------------------------
+  #-----------------------------------------------
 
 # scrape in lunch data
 
@@ -252,7 +253,6 @@ food$closeSat <- food$closeWeek
 food$openSun <- food$openWeek
 food$closeSun <- food$closeWeek
 
-
 food$openWeek[which(sapply(food$openWeek, function(x) { x == "NA"}))] <- NA
 food$closeWeek[which(sapply(food$closeWeek, function(x) { x == "NA"}))] <- NA
 food$openWeek[which(sapply(food$openWeek, function(x) { x == "NULL"}))] <- NA
@@ -287,6 +287,9 @@ food$popularity[which(food$popularity < quantile(food$popularity, seq(0, 1, 1/3)
 food$popularity[which(food$popularity < quantile(food$popularity, seq(0, 1, 1/3))[3] & food$popularity > quantile(food$popularity, seq(0, 1, 1/3))[2])] <- rep(2, 50)
 food$popularity[which(food$popularity >= quantile(food$popularity, seq(0, 1, 1/3))[3])] <- rep(3, 50)
 
+# cleaning ids (only odd numbers)
+food$eventid <- seq(1, nrow(food) * 2, by = 2)
+
 #-------------------------------------------
 
 # Getting geolocations through ggmap
@@ -302,12 +305,9 @@ food$latitude <- as.vector(sapply(seq(2, 150, 2), function(k) { geolocations[k] 
 class(food$longitude) <- "numeric"
 class(food$latitude) <- "numeric"
 
-# cleaning ids (only odd numbers)
-food$eventid <- seq(1, nrow(food) * 2, by = 2)
-
 #-----------------------------------------
 # Writing the file
 
 write.csv(food, "D:/iXperience/Projects/escape/food.csv", row.names = F)   
 
-dat <- read.csv("D:/iXperience/Projects/escape/food.csv")
+
