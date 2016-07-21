@@ -267,9 +267,6 @@ foodselection <- function(food, cuisinesdone, mealtype, currenttime, lat, long) 
                                          else {ifelse((is.na(openWeek) | is.na(closeWeek)), TRUE, currenttime >= openWeek & (currenttime + eventlength) <= closeWeek)}))
   }
   
-  # DEBUG
-  print("I'm here")
-  
   # TODO: this is where the user personalisation code is called
   if (nrow(events) > 0) {
     current <- events[sample(nrow(events), 1), ]
@@ -277,9 +274,6 @@ foodselection <- function(food, cuisinesdone, mealtype, currenttime, lat, long) 
     samplerange <- which(food$subtype == mealtype)
     current <- food[sample(samplerange, 1), ]
   }
-  
-  #DEBUG
-  print(paste("mealtype", mealtype))
   
   cuisinesdone <- c(cuisinesdone, current$cuisine)
   
@@ -326,13 +320,9 @@ activityselection <- function(activitynotseen, subtypename, currenttime, lat, lo
                                            latitude > (lat - latitude_range) &
                                            longitude < (long + longitude_range(c(lat, long))) & 
                                            longitude > (long - longitude_range(c(lat, long))) &
-                                           (if(day == 0) {currenttime >= openSun & (currenttime + eventlength) <= closeSun}
-                                            else if(day == 6) {currenttime >= openSat & (currenttime + eventlength) <= closeSat}
-                                            else {currenttime >= openWeek & (currenttime + eventlength) <= closeWeek}))
-    
-    #(if(day == 0) {ifelse((is.na(openSun) | is.na(closeSun)), TRUE, (currenttime >= openSun & (currenttime + eventlength)) <= closeSun)}
-    #       else if(day == 6) {ifelse((is.na(openSat) | is.na(closeSat)), TRUE, (currenttime>= openSat & (currentttime + eventlength)) <= closeSat)}
-    #       else {ifelse((is.na(openWeek) | is.na(closeWeek)), TRUE, currenttime >= openWeek & (currenttime + eventlength) <= closeWeek)}))
+                                           (if(day == 0) {ifelse((is.na(openSun) | is.na(closeSun)), TRUE, (currenttime >= openSun & (currenttime + eventlength)) <= closeSun)}
+                                             else if(day == 6) {ifelse((is.na(openSat) | is.na(closeSat)), TRUE, (currenttime>= openSat & (currentttime + eventlength)) <= closeSat)}
+                                             else {ifelse((is.na(openWeek) | is.na(closeWeek)), TRUE, currenttime >= openWeek & (currenttime + eventlength) <= closeWeek)}))
   } else {
     events <- activitynotseen %>% filter(subtype %in% subtypename & 
                                            eventid %in% withinrange(activitynotseen, currenteventid) &
