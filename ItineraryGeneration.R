@@ -31,6 +31,11 @@ generator <- function(long, lat, timespan = "fullday",
   food <- dbReadTable(con, "food")
   activity <- dbReadTable(con, "activity")
   
+  # DEBUG
+  set.seed(3)
+  activity$eventlength <- sample(c(1, 1.5, 2, 2, 2.5, 2.5, 3, 4), nrow(activity), replace = T)
+  activity$description[which(activity$description == "There is no description available.")] <- ""
+  
   # Initialize variables: itinerary data frame, currenttime, endtime
   
   itinerary <- data.frame(Event = character(),
@@ -249,25 +254,28 @@ foodselection <- function(food, cuisinesdone, mealtype, currenttime, lat, long) 
                                        longitude < (long + longitude_range(c(lat, long))) & 
                                        longitude > (long - longitude_range(c(lat, long))) &
                                        !(cuisine %in% cuisinesdone) &
-                                       (if(day == 0) {currenttime >= openSun & (currenttime + eventlength) <= closeSun}
-                                        else if(day == 6) {currenttime >= openSat & (currenttime + eventlength) <= closeSat}
-                                        else {currenttime >= openWeek & (currenttime + eventlength) <= closeWeek}))
+                                       if(day == 0) {ifelse((is.na(openSun) | is.na(closeSun)), TRUE, (currenttime >= openSun & (currenttime + eventlength)) <= closeSun)}
+                                         else if(day == 6) {ifelse((is.na(openSat) | is.na(closeSat)), TRUE, (currenttime>= openSat & (currentttime + eventlength)) <= closeSat)}
+                                         else {ifelse((is.na(openWeek) | is.na(closeWeek)), TRUE, currenttime >= openWeek & (currenttime + eventlength) <= closeWeek)})
   } else { 
     events <- food %>% filter(subtype == mealtype & 
                                        eventid %in% withinrange(food, currenteventid) &
                                        !(cuisine %in% cuisinesdone) &
-                                       (if(day == 0) {currenttime >= openSun & (currenttime + eventlength) <= closeSun}
-                                        else if(day == 6) {currenttime >= openSat & (currenttime + eventlength) <= closeSat}
-                                        else {currenttime >= openWeek & (currenttime + eventlength) <= closeWeek}))
+                                       if(day == 0) {ifelse((is.na(openSun) | is.na(closeSun)), TRUE, (currenttime >= openSun & (currenttime + eventlength)) <= closeSun)}
+                                         else if(day == 6) {ifelse((is.na(openSat) | is.na(closeSat)), TRUE, (currenttime>= openSat & (currentttime + eventlength)) <= closeSat)}
+                                         else {ifelse((is.na(openWeek) | is.na(closeWeek)), TRUE, currenttime >= openWeek & (currenttime + eventlength) <= closeWeek)})
   }
   
   # TODO: this is where the user personalisation code is called
   if (nrow(events) > 0) {
     current <- events[sample(nrow(events), 1), ]
   } else { 
-    samplerange <- ifelse(mealtype == "breakfast", 50, ifelse(mealtype == "lunch", 50:100, 100:150))
+    samplerange <- which(food$subtype == mealtype)
     current <- food[sample(samplerange, 1), ]
   }
+  
+  #DEBUG
+  print(paste("mealtype", mealtype))
   
   cuisinesdone <- c(cuisinesdone, current$cuisine)
   
@@ -314,15 +322,15 @@ activityselection <- function(activitynotseen, subtypename, currenttime, lat, lo
                                            latitude > (lat - latitude_range) &
                                            longitude < (long + longitude_range(c(lat, long))) & 
                                            longitude > (long - longitude_range(c(lat, long))) &
-                                           (if(day == 0) {currenttime >= openSun & (currenttime + eventlength) <= closeSun}
-                                            else if(day == 6) {currenttime >= openSat & (currenttime + eventlength) <= closeSat}
-                                            else {currenttime >= openWeek & (currenttime + eventlength) <= closeWeek}))
+                                           if(day == 0) {ifelse((is.na(openSun) | is.na(closeSun)), TRUE, (currenttime >= openSun & (currenttime + eventlength)) <= closeSun)}
+                                             else if(day == 6) {ifelse((is.na(openSat) | is.na(closeSat)), TRUE, (currenttime>= openSat & (currentttime + eventlength)) <= closeSat)}
+                                             else {ifelse((is.na(openWeek) | is.na(closeWeek)), TRUE, currenttime >= openWeek & (currenttime + eventlength) <= closeWeek)})
   } else {
     events <- activitynotseen %>% filter(subtype %in% subtypename & 
                                            eventid %in% withinrange(activitynotseen, currenteventid) &
-                                           (if(day == 0) {currenttime >= openSun & (currenttime + eventlength) <= closeSun}
-                                            else if(day == 6) {currenttime >= openSat & (currenttime + eventlength) <= closeSat}
-                                            else {currenttime >= openWeek & (currenttime + eventlength) <= closeWeek}))
+                                           if(day == 0) {ifelse((is.na(openSun) | is.na(closeSun)), TRUE, (currenttime >= openSun & (currenttime + eventlength)) <= closeSun)}
+                                             else if(day == 6) {ifelse((is.na(openSat) | is.na(closeSat)), TRUE, (currenttime>= openSat & (currentttime + eventlength)) <= closeSat)}
+                                             else {ifelse((is.na(openWeek) | is.na(closeWeek)), TRUE, currenttime >= openWeek & (currenttime + eventlength) <= closeWeek)})
   }
   # TODO: this is where the user personalisation code is called
   if (nrow(events) > 0) {
