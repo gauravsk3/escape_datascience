@@ -24,18 +24,12 @@ generator <- function(long, lat, timespan = "fullday",
   library(dplyr)
   
   # Connect to server
-  #con <- dbConnect(SQLite(), "escapeDB.sqlite")
+  con <- dbConnect(SQLite(), "escapeDB.sqlite")
   
   # Read in food and activity tables
-  food <- read.csv("D:/iXperience/Projects/escape/food.csv")
-  activity <- read.csv("D:/iXperience/Projects/escape/activity.csv")
-  distmatrix <- read.csv("D:/iXperience/Projects/escape/distance_matrix.csv")
   
-  #food <- dbReadTable(con, "food")
-  #activity <- dbReadTable(con, "activity")
-  
-  # Read in distance matrix
-  distmatrix <- dbReadTable(con, "distance_matrix")
+  food <- dbReadTable(con, "food")
+  activity <- dbReadTable(con, "activity")
   
   # Initialize variables: itinerary data frame, currenttime, endtime
   
@@ -78,9 +72,7 @@ generator <- function(long, lat, timespan = "fullday",
   
   # Select first meal
   # Add first meal to itinerary, update variables using the function call's output
-  prevmeal <- foodselection(cuisinesdone, firstmeal.subtype, currenttime, lat, long)
-  
-  
+  prevmeal <- foodselection(food, cuisinesdone, prevmeal.subtype, currenttime, lat, long)
   
   itinerary    <- rbind(itinerary, prevmeal[[1]])
   currenttime  <- prevmeal[[2]]
@@ -102,9 +94,10 @@ generator <- function(long, lat, timespan = "fullday",
       if(length(activitiesleft) > 0){
         newactivity <- sample(activitiesleft, 1)
         activitiesdone <- c(activitiesdone, newactivity)
-        newactivity <- activityselection(newactivity, activitynotseen, currenttime, lat, long)
+        newactivity <- activityselection(activitynotseen, newactivity, currenttime, lat, long)
+        
       } else {
-        newactivity <- activityselection(sample(subtypes, 1), activitynotseen, currenttime, lat, long)
+        newactivity <- activityselection(activitynotseen, sample(subtypes, 1), currenttime, lat, long)
       }
       
       itinerary       <- rbind(itinerary, newactivity[[1]])
@@ -119,7 +112,7 @@ generator <- function(long, lat, timespan = "fullday",
       hsincemeal <- hsincemeal + eventlength
     } else {
       prevmeal.subtype <- "lunch"
-      prevmeal <- foodselection(cuisinesdone, prevmeal.subtype, currenttime, lat, long)
+      prevmeal <- foodselection(food, cuisinesdone, prevmeal.subtype, currenttime, lat, long)
       
       itinerary    <- rbind(itinerary, prevmeal[[1]])
       currenttime  <- prevmeal[[2]]
@@ -137,9 +130,9 @@ generator <- function(long, lat, timespan = "fullday",
       if(length(activitiesleft) > 0){
         newactivity <- sample(activitiesleft, 1)
         activitiesdone <- c(activitiesdone, newactivity)
-        newactivity <- activityselection(newactivity, activitynotseen, currenttime, lat, long)
+        newactivity <- activityselection(activitynotseen, newactivity, currenttime, lat, long)
       } else {
-        newactivity <- activityselection(sample(subtypes, 1), activitynotseen, currenttime, lat, long)
+        newactivity <- activityselection(activitynotseen, sample(subtypes, 1), currenttime, lat, long)
       }
       
       itinerary       <- rbind(itinerary, newactivity[[1]])
@@ -154,7 +147,7 @@ generator <- function(long, lat, timespan = "fullday",
       hsincemeal <- hsincemeal + eventlength
     } else {
       prevmeal.subtype <- "dinner"
-      prevmeal <- foodselection(cuisinesdone, prevmeal.subtype, currenttime, lat, long)
+      prevmeal <- foodselection(food, cuisinesdone, prevmeal.subtype, currenttime, lat, long)
       
       itinerary    <- rbind(itinerary, prevmeal[[1]])
       currenttime  <- prevmeal[[2]]
@@ -173,9 +166,9 @@ generator <- function(long, lat, timespan = "fullday",
     if(length(activitiesleft) > 0){
       newactivity <- sample(activitiesleft, 1)
       activitiesdone <- c(activitiesdone, newactivity)
-      newactivity <- activityselection(c(newactivity, "nightlife"), activitynotseen, currenttime, lat, long)
+      newactivity <- activityselection(activitynotseen, c(newactivity, "nightlife"), currenttime, lat, long)
     } else {
-      newactivity <- activityselection(c(sample(subtypes, 1), "nightlife"), activitynotseen, currenttime, lat, long)
+      newactivity <- activityselection(activitynotseen, c(sample(subtypes, 1), "nightlife"), currenttime, lat, long)
     }
     
     itinerary       <- rbind(itinerary, newactivity[[1]])
@@ -203,6 +196,8 @@ generator <- function(long, lat, timespan = "fullday",
 #' @return eventids of the values within r of the eventid arg
 #' @description function that uses the distance matrix to return a vector of eventids which are within a radius r of the event argument's location
 withinrange <- function(table, eventid, r = 5000) {
+  # Read in the distance matrix
+  distmatrix <- dbReadTable(con, "distance_matrix")
   # lookup the entire row corresponding to the event's id, return values in corresponding table within range
   values <- distmatrix[eventid, ]
   validindex <- setdiff(which(values < r), eventid)
@@ -214,11 +209,10 @@ withinrange <- function(table, eventid, r = 5000) {
 #' @param lat : latitude of the event we are trying ot detect
 #' @param long : longitude of the event we are trying to detect
 #' @return the eventid of the event corresponding to the given lat and long
-detect.event <- function(lat, long) {
-  ifelse(length(food$eventid[which(food$latitude == lat & food$longitude == long)]) != 0,
-         food$eventid[which(food$latitude == lat & food$longitude == long)][1],
-         ifelse(length(activity$eventid[which(activity$latitude == lat & activity$longitude == long)]) != 0,
-                activity$eventid[which(activity$latitude == lat & activity$longitude == long)][1], NA))
+detect.event <- function(table, lat, long) {
+  
+  ifelse(length(table$eventid[which(table$latitude == lat & table$longitude == long)]) != 0,
+         (table$eventid[which(table$latitude == lat & table$longitude == long)])[1], NA)
 }
 
 
@@ -241,17 +235,15 @@ latitude_range <- 0.01449275362
 #' @returns a list containing the event as it would appear in the row of a dataframe along with the endtime, lat, long and updated cuisinesdone and foodnotseen 
 #' @description : Function to select a food location
 #' 
-foodselection <- function(cuisinesdone, mealtype, currenttime, lat, long) {
+foodselection <- function(food, cuisinesdone, mealtype, currenttime, lat, long) {
   day <- as.POSIXlt(Sys.Date())$wday
-  pop <- sample(1:3, 1)
   
   # detect the event corresponding to the given latitude and longitude, could be food or activity
   # the first time (from the user's location), the function returns NA, which is handled accordingly
-  currenteventit <- detect.event(lat, long)
+  currenteventid <- detect.event(food, lat, long)
   
-  if (is.na(currentevent)) {
-    events <- food %>% filter(subtype == subtypename & 
-                                       popularity == pop &
+  if (is.na(currenteventid)) {
+    events <- food %>% filter(subtype == mealtype & 
                                        latitude < (lat + latitude_range) & 
                                        latitude > (lat - latitude_range) &
                                        longitude < (long + longitude_range(c(lat, long))) & 
@@ -262,17 +254,20 @@ foodselection <- function(cuisinesdone, mealtype, currenttime, lat, long) {
                                         else {currenttime >= openWeek & (currenttime + eventlength) <= closeWeek}))
   } else { 
     events <- food %>% filter(subtype == mealtype & 
-                                       popularity == pop &
-                                       eventid %in% within.range(food, currenteventid) &
+                                       eventid %in% withinrange(food, currenteventid) &
                                        !(cuisine %in% cuisinesdone) &
                                        (if(day == 0) {currenttime >= openSun & (currenttime + eventlength) <= closeSun}
                                         else if(day == 6) {currenttime >= openSat & (currenttime + eventlength) <= closeSat}
                                         else {currenttime >= openWeek & (currenttime + eventlength) <= closeWeek}))
   }
   
-  
   # TODO: this is where the user personalisation code is called
-  current <- events[sample(length(events), 1),]
+  if (nrow(events) > 0) {
+    current <- events[sample(nrow(events), 1), ]
+  } else { 
+    samplerange <- ifelse(mealtype == "breakfast", 50, ifelse(mealtype == "lunch", 50:100, 100:150))
+    current <- food[sample(samplerange, 1), ]
+  }
   
   cuisinesdone <- c(cuisinesdone, current$cuisine)
   
@@ -308,15 +303,13 @@ foodselection <- function(cuisinesdone, mealtype, currenttime, lat, long) {
 #' @param long : longitude of the user at the beginning; only used for the first event
 #' @returns a list containing the event as it would appear in the row of a dataframe along with the endtime, lat, long and an updated activitynotseen 
 #' @description : Function to select an activity
-activityselection <- function(subtypename, activitynotseen, currenttime, lat, long) {
+activityselection <- function(activitynotseen, subtypename, currenttime, lat, long) {
   day <- as.POSIXlt(Sys.Date())$wday
-  pop <- sample(1:3, 1)
   
-  currenteventid <- detect.event(lat, long)
+  currenteventid <- detect.event(activitynotseen, lat, long)
   
-  if (is.na(currentevent)) {
+  if (is.na(currenteventid)) {
     events <- activitynotseen %>% filter(subtype %in% subtypename & 
-                                           popularity == pop &
                                            latitude < (lat + latitude_range) & 
                                            latitude > (lat - latitude_range) &
                                            longitude < (long + longitude_range(c(lat, long))) & 
@@ -325,15 +318,18 @@ activityselection <- function(subtypename, activitynotseen, currenttime, lat, lo
                                             else if(day == 6) {currenttime >= openSat & (currenttime + eventlength) <= closeSat}
                                             else {currenttime >= openWeek & (currenttime + eventlength) <= closeWeek}))
   } else {
-    events <- activitynotseen %>% filter(subtype == subtypename & 
-                                           popularity == pop &
-                                           eventid %in% within.range(activity, currenteventid) &
+    events <- activitynotseen %>% filter(subtype %in% subtypename & 
+                                           eventid %in% withinrange(activitynotseen, currenteventid) &
                                            (if(day == 0) {currenttime >= openSun & (currenttime + eventlength) <= closeSun}
                                             else if(day == 6) {currenttime >= openSat & (currenttime + eventlength) <= closeSat}
                                             else {currenttime >= openWeek & (currenttime + eventlength) <= closeWeek}))
   }
   # TODO: this is where the user personalisation code is called
-  current <- events[sample(length(events), 1),]
+  if (nrow(events) > 0) {
+    current <- events[sample(nrow(events), 1), ]
+  } else { 
+    current <- activitynotseen[sample(nrow(activitynotseen), 1), ]
+  }
   
   activitynotseen <- activitynotseen[-which(activitynotseen$eventid == current$eventid), ]
   
