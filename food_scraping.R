@@ -310,4 +310,3 @@ class(food$latitude) <- "numeric"
 
 write.csv(food, "D:/iXperience/Projects/escape/food.csv", row.names = F)   
 
-
