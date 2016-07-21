@@ -75,11 +75,11 @@ generator <- function(long, lat, timespan = "fullday",
                               ifelse(timespan == "afternoon", "lunch", "dinner"))
   
   # Select first meal
+  # Add first meal to itinerary, update variables using the function call's output
   prevmeal <- foodselection(cuisinesdone, firstmeal.subtype, foodnotseen, currenttime, lat, long)
   
-  # Add first meal to itinerary, update variables using the function call's output
-  prevmeal <- prevmeal <- foodselection(cuisinesdone, firstmeal.subtype, foodnotseen, currenttime, lat, long)
   
+
   itinerary    <- rbind(itinerary, prevmeal[[1]])
   currenttime  <- prevmeal[[2]]
   lat          <- prevmeal[[3]]
