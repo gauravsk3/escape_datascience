@@ -14,7 +14,7 @@
 #' @import dplyr
 #' @import plumber
 generator <- function(long, lat, timespan = "fullday", 
-                      subtypes = c("entertainment", "museum", "outdoors", "nightlife", "shopping")) {
+                      subtypes = c("nightlife", "entertain", "museums", "outdoor", "sightsee", "shopping", "relax", "tour")) {
   # Setup phase
   
   # Call libraries
@@ -22,14 +22,17 @@ generator <- function(long, lat, timespan = "fullday",
   library(lubridate)
   library(geosphere)
   library(dplyr)
-  library(plumber)
   
   # Connect to server
-  con <- dbConnect(SQLite(), "escapeDB.sqlite")
+  #con <- dbConnect(SQLite(), "escapeDB.sqlite")
   
   # Read in food and activity tables
-  food <- dbReadTable(con, "food")
-  activity <- dbReadTable(con, "activity")
+  food <- read.csv("D:/iXperience/Projects/escape/food.csv")
+  activity <- read.csv("D:/iXperience/Projects/escape/activity.csv")
+  distmatrix <- read.csv("D:/iXperience/Projects/escape/distance_matrix.csv")
+  
+  #food <- dbReadTable(con, "food")
+  #activity <- dbReadTable(con, "activity")
   
   # Read in distance matrix
   distmatrix <- dbReadTable(con, "distance_matrix")
@@ -217,6 +220,17 @@ detect.event <- function(lat, long) {
          ifelse(length(activity$eventid[which(activity$latitude == lat & activity$longitude == long)]) != 0,
                 activity$eventid[which(activity$latitude == lat & activity$longitude == long)][1], NA))
 }
+
+
+#' @return longitude range as a functino of given coordinate
+longitude_range <- function(coord) {
+  p1 <- destPoint(p=coord, b=0, d = 16000)[2]
+  long_range <- p1 - coord[2]
+  return(long_range)
+}
+
+# Variable of latitude range
+latitude_range <- 0.01449275362
 
 
 #' @param cuisinesdone : cuisines that have already been included in the itinerary
