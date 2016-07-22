@@ -72,7 +72,7 @@ users.dist <- dist(clusterusers)
 users.hclust <- hclust(users.dist)
 plot(users.hclust)
 
-# We can once again identify four clusters. We distinguish them using cutree.
+# We can once again identify five clusters. We distinguish them using cutree.
 agg.clusters <- cutree(users.hclust, k = 5)
 
 # Let us append the cluster belongings to the original dataframe
@@ -182,4 +182,53 @@ sum(agg.multiple.clusters) / length(agg.multiple.clusters)
 # to which a user belong when trying to choose the optimal event that should be suggested to that user.
 # Because of the very limited size of the dataset at the moment, along with the potential for improvement
 # of the model, we can only be optimistic as to what predictive power we may hope to acquire over time.
+View(users)
 
+#----------------------------
+
+#' @param userid : the id of the user for whom we are trying to generate a customized suggestion
+#' @param evenset : dataframe containing events from which we wish to choose the best fit for the user
+#' @return the event row that was rated the highest by the cluster to which the user belongs
+findBestEvent(userid, eventset, city) {
+  
+  library(readr)
+  library(randomNames)
+  library(stringr)
+  library(cluster)
+  library(dplyr)
+  
+  # Connect to server
+  con <- dbConnect(SQLite(), "escapeDB.sqlite")
+  
+  # Read in users, users_event table, get user
+  users <- dbReadTable(con, "users")
+  users_event <- dbReadTable(con, "users_event")
+  user <- users[which(users$userid == userid), ]
+  
+  # TODO: might be more efficient to generate k-means algorithm only occasionally (ex: whenever a new user is added) and to store
+  # the clustering labels as a variable within the users database
+  
+  # Generate the standardized clusterusers table to be able to call the k-means algorithm
+  clusterusers <- users[, c(3:6, 8:11)]
+  clusterusers$city <- as.factor(clusterusers$city)
+  clusterusers$homecountry <- as.factor(clusterusers$homecountry)
+  clusterusers[, 2:8] <- sapply(2:8, function(n) { clusterusers[, n] <- as.numeric(clusterusers[, n]) })
+  
+  # generate k-means agglomeration clustering algorithm with k = 5
+  users.dist <- dist(clusterusers)
+  users.hclust <- hclust(users.dist)
+  
+  agg.clusters <- cutree(users.hclust, k = 5)
+  
+  # filter users by selecting those users which belong to the same cluster as the original user
+  users$aggcluster <- agg.clusters
+  users <- users %>% filter(aggcluster == user$aggcluster)
+  
+  # get ranked list of evenset
+  # assumes structure of users_event: userid, cityname, eventid, eventrating 
+  custom_event <- users_event %>% filter(userid %in% users$userid & userid != user$userid) # only users in the cluster are left in users dataframe
+  custom_event <- custom_event %>% filter(eventid %in% evenset$eventid & cityname == city) %>% arrange(desc(eventrating))
+  
+  # we should now have the best liked event among the cluster elements as the highest ranked in the evenset dataframe
+  return(custom_event[1, ])
+}
